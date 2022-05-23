@@ -14,7 +14,6 @@ func fizzBuzz(n int32) {
 		} else {
 			fmt.Println(i)
 		}
-
 	}
 }
 
