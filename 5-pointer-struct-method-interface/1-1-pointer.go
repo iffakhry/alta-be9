@@ -16,6 +16,18 @@ func ubahDataPointer(data *string) string {
 	return *data
 }
 
+func ubahAngka(data int) int {
+	fmt.Println("address: pass by value", &data)
+	data = data * 10
+	return data
+}
+
+func ubahAngkaPointer(data *int) int {
+	fmt.Println("address: pass by reference", data)
+	*data = *data * 10
+	return *data
+}
+
 func main() {
 	var nama = "john"
 	namaResult := ubahData(nama)
@@ -25,4 +37,11 @@ func main() {
 	namaResultPointer := ubahDataPointer(&nama)
 	fmt.Println("nama:", nama)                    //
 	fmt.Println("namaResult:", namaResultPointer) //pak doe
+	fmt.Println("=============")
+	var angka = 5
+	fmt.Println("angka", angka)
+	fmt.Println("angka address", &angka)
+	fmt.Println(ubahAngka(angka))
+	fmt.Println(ubahAngkaPointer(&angka))
+	fmt.Println("angka point", angka)
 }
