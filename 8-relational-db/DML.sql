@@ -139,7 +139,22 @@ ORDER BY SUM(mk.sks) DESC;
 SELECT * FROM mahasiswa m 
 WHERE m.id IN (select ds.mahasiswa_id FROM data_semester ds);
 
-select ds.mahasiswa_id FROM data_semester ds;
+select DISTINCT ds.mahasiswa_id FROM data_semester ds;
 
+SELECT * from mahasiswa m ;
+
+-- subquery di perintah update
+UPDATE mahasiswa m set 
+m.status = "aktif"
+WHERE m.id IN (select ds.mahasiswa_id FROM data_semester ds);
+
+UPDATE mahasiswa m set 
+m.status = "tidak aktif"
+WHERE m.id NOT IN (select ds.mahasiswa_id FROM data_semester ds);
+
+
+UPDATE mahasiswa m set 
+m.status = "aktif"
+WHERE m.id = 1010;
 
 

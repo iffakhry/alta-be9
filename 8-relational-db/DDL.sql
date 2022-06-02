@@ -17,6 +17,7 @@ jenis_kelamin varchar(20),
 alamat longtext,
 jurusan_id int,
 telp varchar(15),
+status varchar(50),
 CONSTRAINT FK_MahasiswaJurusan FOREIGN KEY (jurusan_id) REFERENCES jurusan(id)
 );
 
@@ -54,7 +55,7 @@ show tables;
 ALTER TABLE db_be9.mahasiswa DROP FOREIGN KEY FK_MahasiswaJurusan;
 ALTER TABLE db_be9.mahasiswa ADD CONSTRAINT FK_MahasiswaJurusan FOREIGN KEY (jurusan_id) REFERENCES db_be9.jurusan(id) ON DELETE CASCADE ON UPDATE CASCADE;
 
-
+ALTER TABLE mahasiswa ADD COLUMN status varchar(50);
 
 
 
