@@ -51,6 +51,9 @@ id int
 DROP table dummy;
 show tables;
 
+ALTER TABLE db_be9.mahasiswa DROP FOREIGN KEY FK_MahasiswaJurusan;
+ALTER TABLE db_be9.mahasiswa ADD CONSTRAINT FK_MahasiswaJurusan FOREIGN KEY (jurusan_id) REFERENCES db_be9.jurusan(id) ON DELETE CASCADE ON UPDATE CASCADE;
+
 
 
 
