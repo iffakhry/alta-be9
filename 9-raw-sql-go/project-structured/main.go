@@ -24,10 +24,13 @@ func main() {
 
 	switch pilihan {
 	case 1:
-		results := _mahasiswaController.GetAllMahasiswa(DBConn)
-
-		for _, v := range results {
-			fmt.Println("ID:", v.ID, "Nama:", v.Nama, "Status:", v.Status.String)
+		results, err := _mahasiswaController.GetAllMahasiswa(DBConn)
+		if err != nil {
+			fmt.Println("error get data mahasiswa", err)
+		} else {
+			for _, v := range results {
+				fmt.Println("ID:", v.ID, "Nama:", v.Nama, "Status:", v.Status.String)
+			}
 		}
 
 	case 2:

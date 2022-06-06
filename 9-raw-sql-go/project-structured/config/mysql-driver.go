@@ -3,6 +3,7 @@ package config
 import (
 	"database/sql"
 	"fmt"
+	"os"
 
 	_ "github.com/go-sql-driver/mysql"
 )
@@ -10,7 +11,8 @@ import (
 func ConnectionDB() *sql.DB {
 	// buat koneksi ke DB
 	// <username>:<password>@tcp(<hostname>:<portDB>)/<db_name>
-	db, err := sql.Open("mysql", "root:qwerty123@tcp(localhost:3306)/db_be9")
+	dbConnection := os.Getenv("DB_CONNECTION")
+	db, err := sql.Open("mysql", dbConnection)
 	if err != nil {
 		panic(err.Error())
 	} else {

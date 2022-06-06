@@ -6,10 +6,11 @@ import (
 	"fmt"
 )
 
-func GetAllMahasiswa(db *sql.DB) []_entities.Mahasiswa {
+func GetAllMahasiswa(db *sql.DB) ([]_entities.Mahasiswa, error) {
 	results, err := db.Query("SELECT id, nama, jenis_kelamin, alamat, jurusan_id, telp, status FROM mahasiswa")
 	if err != nil {
-		fmt.Println("error", err.Error())
+		// fmt.Println("error", err.Error())
+		return []_entities.Mahasiswa{}, err
 	}
 	defer db.Close() //close db connection when process done
 
@@ -24,7 +25,7 @@ func GetAllMahasiswa(db *sql.DB) []_entities.Mahasiswa {
 		dataAll = append(dataAll, mahasiswa)
 	}
 
-	return dataAll
+	return dataAll, nil
 }
 
 /*
