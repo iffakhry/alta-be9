@@ -24,7 +24,7 @@ INSERT INTO mahasiswa (id, nama, jenis_kelamin, alamat, jurusan_id, telp)
 values (1003, "Cindy", "perempuan", "Medan", 1, "0812346");
 
 INSERT INTO mahasiswa (id, nama, jenis_kelamin, alamat, jurusan_id, telp)
-values (1010, "Budi 5", "laki-laki", "Surabaya", 9, "0812345");
+values (1013, "Budi 6", "laki-laki", "Surabaya", 9, "0812345");
 
 SELECT * FROM mahasiswa m WHERE m.jurusan_id =7;
 
@@ -156,5 +156,7 @@ WHERE m.id NOT IN (select ds.mahasiswa_id FROM data_semester ds);
 UPDATE mahasiswa m set 
 m.status = "aktif"
 WHERE m.id = 1010;
+
+SELECT id, nama, jenis_kelamin, alamat, jurusan_id, telp, status FROM mahasiswa;
 
 
