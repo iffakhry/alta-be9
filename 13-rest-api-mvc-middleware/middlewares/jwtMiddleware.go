@@ -4,9 +4,10 @@ package middlewares
 
 import (
 	_constants "be9/restmvc/constants"
+	"fmt"
 	"time"
 
-	"github.com/golang-jwt/jwt/v4"
+	"github.com/golang-jwt/jwt"
 	"github.com/labstack/echo/v4"
 	"github.com/labstack/echo/v4/middleware"
 )
@@ -28,12 +29,12 @@ func CreateToken(userId int) (string, error) {
 
 }
 
-func ExtractTokenUserId(e echo.Context) int {
+func ExtractToken(e echo.Context) (int, error) {
 	user := e.Get("user").(*jwt.Token)
 	if user.Valid {
 		claims := user.Claims.(jwt.MapClaims)
-		userId := claims["userId"].(int)
-		return userId
+		userId := claims["userId"].(float64)
+		return int(userId), nil
 	}
-	return 0
+	return 0, fmt.Errorf("token invalid")
 }

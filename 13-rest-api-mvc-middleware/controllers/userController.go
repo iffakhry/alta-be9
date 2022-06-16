@@ -7,6 +7,7 @@ import (
 
 	_entities "be9/restmvc/entities"
 	_helper "be9/restmvc/helper"
+	_middlewares "be9/restmvc/middlewares"
 	_repositories "be9/restmvc/repositories"
 
 	"github.com/labstack/echo/v4"
@@ -39,13 +40,21 @@ func GetUsersController(c echo.Context) error {
 }
 
 func GetUserByIdController(c echo.Context) error {
+	idToken, errToken := _middlewares.ExtractToken(c)
+	if errToken != nil {
+		c.JSON(http.StatusBadRequest, _helper.ResponseFailed("invalid token"))
+	}
+
 	id := c.Param("id")
 	iduser, errid := strconv.Atoi(id)
 	if errid != nil {
-		return c.JSON(http.StatusInternalServerError, map[string]interface{}{
-			"message": "id not recognise",
-		})
+		return c.JSON(http.StatusBadRequest, _helper.ResponseFailed("id not recognise"))
 	}
+
+	if idToken != iduser {
+		return c.JSON(http.StatusUnauthorized, _helper.ResponseFailed("unauthorized"))
+	}
+
 	users, err := _repositories.GetUserById(iduser)
 
 	if err != nil {

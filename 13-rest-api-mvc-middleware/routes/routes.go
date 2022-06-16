@@ -11,7 +11,7 @@ func New() *echo.Echo {
 	e := echo.New()
 
 	e.GET("/users", _controllers.GetUsersController, middlewares.JWTMiddleware())
-	e.GET("/users/:id", _controllers.GetUserByIdController)
+	e.GET("/users/:id", _controllers.GetUserByIdController, middlewares.JWTMiddleware())
 	e.POST("/users", _controllers.CreateUserController)
 	e.POST("/auth", _controllers.LoginUserController)
 
