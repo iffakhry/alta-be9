@@ -1,10 +1,11 @@
 package factory
 
 import (
-	"be9/restclean/config"
 	_userBusiness "be9/restclean/features/users/business"
 	_userData "be9/restclean/features/users/data"
 	_userPresentation "be9/restclean/features/users/presentation"
+
+	"gorm.io/gorm"
 )
 
 type Presenter struct {
@@ -12,8 +13,8 @@ type Presenter struct {
 	// ProductPresenter *_productPresentation.ProductHandler
 }
 
-func InitFactory() Presenter {
-	dbConn := config.InitDB()
+func InitFactory(dbConn *gorm.DB) Presenter {
+	// dbConn := config.InitDB()
 
 	userData := _userData.NewUserRepository(dbConn)
 	userBusiness := _userBusiness.NewUserBusiness(userData)
