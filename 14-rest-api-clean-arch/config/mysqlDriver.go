@@ -3,8 +3,6 @@ package config
 import (
 	"fmt"
 
-	_mUsers "be9/restclean/features/users/data"
-
 	"gorm.io/driver/mysql"
 	"gorm.io/gorm"
 )
@@ -32,10 +30,5 @@ func InitDB() *gorm.DB {
 		panic(err)
 	}
 
-	InitMigrate(db)
 	return db
-}
-
-func InitMigrate(db *gorm.DB) {
-	db.AutoMigrate(&_mUsers.User{})
 }

@@ -11,6 +11,16 @@ type User struct {
 	Name     string `json:"name" form:"name"`
 	Email    string `json:"email" form:"email"`
 	Password string `json:"password" form:"password"`
+	Books    []Book
+}
+
+type Book struct {
+	gorm.Model
+	Title     string `json:"title" form:"title"`
+	Author    string `json:"author" form:"author"`
+	Publisher string `json:"publisher" form:"publisher"`
+	UserID    uint   `json:"user_id" form:"user_id"`
+	User      User
 }
 
 // DTO
