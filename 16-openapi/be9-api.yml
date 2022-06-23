@@ -1,0 +1,184 @@
+openapi: 3.0.3
+info:
+  title: ALTA API BE9
+  description: description API BE9
+  termsOfService: https://academy.alterra.id
+  contact:
+    name: API Support
+    url: https://www.alterra.id/support
+    email: support@alterra.id
+  license:
+    name: Apache 2.0
+    url: https://www.apache.org/licenses/LICENSE-2.0.html
+  version: '1.0.0'
+externalDocs:
+  description: alterra external docs API
+  url: https://alterra.id
+servers:
+  - description: SwaggerHub API Auto Mocking
+    url: https://virtserver.swaggerhub.com/iffakhry/alta-api-be9/1.0.0
+  - url: https://{environment}.api.alterra.id/v1
+    description: ALTA API server
+    variables:
+      environment:
+        default: dev
+        enum:
+          - dev
+          - staging
+          - production
+  - url: http://13.215.249.83:80
+    description: ALTA API server
+tags:
+  - name: Auth
+    description: Authentication
+  - name: Users
+    description: User data management
+  - name: Books
+    description: Book data management
+paths:
+  /auth:
+    post:
+      tags:
+        - Auth
+      summary: login user
+      description: Login user description
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/requestLogin'
+            examples:
+              userData1:
+                description: "Example data user"
+                value: {
+                  email: "alta@alterra.id",
+                  password: "inipassword"
+                }
+              userData2:
+                description: "Example data user"
+                value: {
+                  email: "alta2@alterra.id",
+                  password: "inipassword2"
+                }
+              # type: object
+              # properties:
+              #   email:
+              #     type: string
+              #     example: alta@mail.com
+              #   password:
+              #     type: string
+              #     example: inipassword
+      responses:
+        '200':
+          description: Success Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/responseLoginSuccess'
+              examples:
+                responseData1:
+                  description: response success 1
+                  value: {
+                    code: 200,
+                    status: "success",
+                    message: "Login Success",
+                    data: {
+                      id: 1,
+                      token: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdXRob3JpemVkIjp0cnVlLCJleHAiOjE2MzgzMjYxODAsInVzZXJJZCI6MSwidXNlcm5hbWUiOiJhZG1pbiJ9.AebFR-oQjUSOMez2ucDWkiMrS2eQIPmcYm5c71qZ_co"
+                    }
+                  }
+                responseData2:
+                  description: response success 2
+                  value: {
+                    code: 200,
+                    status: "success",
+                    message: "Login Success",
+                    data: {
+                      id: 2,
+                      token: "AyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdXRob3JpemVkIjp0cnVlLCJleHAiOjE2MzgzMjYxODAsInVzZXJJZCI6MSwidXNlcm5hbWUiOiJhZG1pbiJ9.AebFR-oQjUSOMez2ucDWkiMrS2eQIPmcYm5c71qZ_co"
+                    }
+                  }
+
+        '400':
+          description: Failed Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/failedResponse'
+              examples:
+                responseData1:
+                  description: response failed 1
+                  value: {
+                    code: 400,
+                    status: "failed",
+                    message: "Login Failed. Email and Password incorrect."
+                  }
+                responseData2:
+                  description: response failed 2
+                  value: {
+                    code: 400,
+                    status: "failed",
+                    message: "Login Failed. Your email doesn't match any entry"
+                  }
+  /books:
+    get:
+      tags:
+        - Books
+      responses:
+        '200':
+          description: OK
+    post:
+      tags:
+        - Books
+      responses:
+        '200':
+          description: OK
+  /books/{idbook}:
+    get:
+      tags:
+        - Books
+      responses:
+        '200':
+          description: OK
+  
+components:
+  schemas:
+    requestLogin:
+      type: object
+      properties:
+        "email":
+          type: string
+          minLength: 1
+        "password":
+          type: string
+          minLength: 1
+
+    responseLoginSuccess:
+      type: object
+      properties: {
+        "code":{
+          type: number
+        },
+        "message": {
+          type: string
+        },
+        "status": {
+          type: string
+        },
+        "data":{
+          type: object
+        }
+      }
+    failedResponse:
+      type: object
+      properties: {
+        "code":{
+          type: number
+        },
+        "message": {
+          type: string
+        },
+        "status": {
+          type: string
+        }
+      }
